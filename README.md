@@ -16,9 +16,9 @@ $ yarn add emit-lite
 
 ## Usage
 
-`emitter.on(eventType, handler)`
+emitter.on(eventType, handler)
 
-`emitter.emit(eventType, [arg[, ...]])`
+emitter.emit(eventType, [arg[, ...]])
 
 ```js
 import EmitLite from 'emit-lite';
@@ -32,7 +32,7 @@ emitter.on('test:on', (a, b) => {
 emitter.emit('test:on', 'a', 'b');
 ```
 
-`emitter.once(eventType, handler)`
+emitter.once(eventType, handler)
 
 ```js
 emitter.once('test:once', () => {
@@ -42,7 +42,7 @@ emitter.emit('test:once');
 emitter.emit('test:once');
 ```
 
-`emitter.off(eventType, handler)`
+emitter.off(eventType, handler)
 
 ```js
 const handler = () => console.log('emitted'); // will not emit
@@ -52,7 +52,7 @@ emitter.off('test:off');
 emitter.emit('test:off');
 ```
 
-`emitter.getCount(eventType)`
+emitter.getCount(eventType)
 
 ```js
 const count = 3;
