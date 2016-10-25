@@ -42,7 +42,7 @@ emitter.emit('test:once');
 emitter.emit('test:once');
 ```
 
-emitter.off(eventType, handler)
+emitter.off(eventType[, handler])
 
 ```js
 const handler = () => console.log('emitted'); // will not emit
