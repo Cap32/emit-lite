@@ -1,4 +1,4 @@
-Super Light weight Event Emitter for Node.js and browser. (Only 0.61KB after gzipped)
+Super Light weight Event Emitter for Node.js and browser. (Only 0.64KB after gzipped)
 
 ## Installing
 
