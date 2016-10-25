@@ -1,7 +1,7 @@
 {
   "name": "emit-lite",
   "version": "0.0.0",
-  "description": "Light weight event-emitter for Node.js and browser",
+  "description": "Super Light weight Event Emitter for Node.js and browser",
   "scripts": {
     "prebuild": "rimraf ./dist && mkdirp ./dist",
     "build:cjs": "babel index.js -o dist/emit-lite.cjs.js",

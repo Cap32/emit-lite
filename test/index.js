@@ -3,47 +3,47 @@ const EmitLite = require('../');
 const assert = require('assert');
 
 describe('EmitLite', function () {
-	let event = new EmitLite();
+	let emitter = new EmitLite();
 
 	beforeEach(() => {
-		event = new EmitLite();
+		emitter = new EmitLite();
 	});
 
 	it('on', function (done) {
-		event.on('test:on', (a, b) => {
+		emitter.on('test:on', (a, b) => {
 			assert(a === 'a');
 			assert(b === 'b');
 			done();
 		});
-		event.emit('test:on', 'a', 'b');
+		emitter.emit('test:on', 'a', 'b');
 	});
 
 	it('once', function (done) {
-		event.once('test:once', done);
-		event.emit('test:once');
+		emitter.once('test:once', done);
+		emitter.emit('test:once');
 	});
 
 	it('not twice', function (done) {
 		let count = 0;
-		event.once('test:twice', () => {
+		emitter.once('test:twice', () => {
 			if (!count) { count++; }
 			else { assert(false); }
 		});
-		event.emit('test:twice');
-		event.emit('test:twice');
+		emitter.emit('test:twice');
+		emitter.emit('test:twice');
 		setTimeout(done, 1000);
 	});
 
 	it('off', function (done) {
-		event.on('test:off', () => assert(false));
-		event.off('test:off');
-		event.emit('test:off');
+		emitter.on('test:off', () => assert(false));
+		emitter.off('test:off');
+		emitter.emit('test:off');
 		setTimeout(done, 1000);
 	});
 
 	it('getCount', function () {
 		const count = 3;
-		new Array(3).fill().forEach(() => event.on('test:count'));
-		assert(event.getCount('test:count') === count);
+		new Array(count).fill().forEach(() => emitter.on('test:count'));
+		assert(emitter.getCount('test:count') === count);
 	});
 });
