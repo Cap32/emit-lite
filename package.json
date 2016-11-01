@@ -4,7 +4,7 @@
   "description": "Super Light weight Event Emitter for Node.js and browser",
   "scripts": {
     "prebuild": "rimraf ./dist && mkdirp ./dist",
-    "build:cjs": "babel index.js -o dist/emit-lite.cjs.js",
+    "build:cjs": "babel index.js -o browser.js",
     "build:umd": "cross-env BABEL_ENV=umd babel index.js -o dist/emit-lite.js",
     "build:min": "cross-env BABEL_ENV=min babel index.js -o dist/emit-lite.min.js",
     "build": "npm run build:cjs && npm run build:umd && npm run build:min",
@@ -13,9 +13,10 @@
     "prepublish": "npm run build"
   },
   "main": "index.js",
-  "browser": "dist/emit-lite.cjc.js",
+  "browser": "browser.js",
   "files": [
     "dist",
+    "browser.js",
     "README.md"
   ],
   "author": "cap32",
