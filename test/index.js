@@ -41,9 +41,35 @@ describe('EmitLite', function () {
 		setTimeout(done, 1000);
 	});
 
-	it('getCount', function () {
+	it('listenerCount', function () {
 		const count = 3;
 		new Array(count).fill().forEach(() => emitter.on('test:count'));
-		assert(emitter.getCount('test:count') === count);
+		assert(emitter.listenerCount('test:count') === count);
+	});
+
+	it('mixin', function (done) {
+		const obj = { a: 'a' };
+		EmitLite.mixin(obj);
+		obj.on('test:mixin', (b) => {
+			assert(obj.a === 'a');
+			assert(b === 'b');
+			done();
+		});
+		obj.emit('test:mixin', 'b');
+	});
+
+	it('es6 extends', function (done) {
+		class Obj extends EmitLite {
+			getB() {
+				return 'b';
+			}
+		}
+		const obj = new Obj();
+		obj.on('test:extends', function (a) {
+			assert(a === 'a');
+			assert(this.getB() === 'b');
+			done();
+		});
+		obj.emit('test:extends', 'a');
 	});
 });

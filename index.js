@@ -1,9 +1,7 @@
 
-const _events = '__emit_lite__';
+const _events = '_emit_lite';
 
-const EmitLite = function EmitLite() {};
-
-Object.assign(EmitLite.prototype, {
+const emitter = {
 	on(event, fn) {
 		this[_events] = this[_events] || {};
 		this[_events][event] = this[_events][event] || [];
@@ -18,7 +16,7 @@ Object.assign(EmitLite.prototype, {
 	},
 	once(event, fn) {
 		const wrappedFn = (...args) => {
-			fn(...args);
+			fn.apply(this, args);
 			this.off(event, wrappedFn);
 		};
 		this.on(event, wrappedFn);
@@ -27,12 +25,23 @@ Object.assign(EmitLite.prototype, {
 		this[_events] = this[_events] || {};
 		if (!(event in this[_events])) { return; }
 
-		this[_events][event].forEach((fn) => fn(...args));
+		this[_events][event].forEach((fn) => fn.apply(this, args));
 	},
-	getCount(event) {
+	listenerCount(event) {
 		this[_events] = this[_events] || {};
 		return (this[_events][event] || []).length;
 	},
-});
+};
+
+const EmitLite = function EmitLite() {};
+
+EmitLite.mixin = (src) => {
+	for (const method in emitter) { // eslint-disable-line guard-for-in
+		emitter.hasOwnProperty(method) && (src[method] = emitter[method]);
+	}
+	return src;
+};
+
+EmitLite.mixin(EmitLite.prototype, emitter);
 
 module.exports = EmitLite;
