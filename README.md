@@ -1,5 +1,7 @@
 Super Light weight Event Emitter for Node.js and browser.
 
+[![Build Status](https://travis-ci.org/Cap32/emit-lite.svg?branch=master)](https://travis-ci.org/Cap32/emit-lite)
+
 ## Installing
 
 Using npm:
