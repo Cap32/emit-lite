@@ -9,7 +9,7 @@ describe('EmitLite', function () {
 		emitter = new EmitLite();
 	});
 
-	it('on', function (done) {
+	it('on()', function (done) {
 		emitter.on('test:on', (a, b) => {
 			assert(a === 'a');
 			assert(b === 'b');
@@ -18,7 +18,7 @@ describe('EmitLite', function () {
 		emitter.emit('test:on', 'a', 'b');
 	});
 
-	it('once', function (done) {
+	it('once()', function (done) {
 		emitter.once('test:once', done);
 		emitter.emit('test:once');
 	});
@@ -34,20 +34,27 @@ describe('EmitLite', function () {
 		setTimeout(done, 1000);
 	});
 
-	it('off', function (done) {
+	it('off()', function (done) {
 		emitter.on('test:off', () => assert(false));
 		emitter.off('test:off');
 		emitter.emit('test:off');
 		setTimeout(done, 1000);
 	});
 
-	it('listenerCount', function () {
+	it('off() alt', function (done) {
+		const off = emitter.on('test:off', () => assert(false));
+		off();
+		emitter.emit('test:off');
+		setTimeout(done, 1000);
+	});
+
+	it('listenerCount()', function () {
 		const count = 3;
 		new Array(count).fill().forEach(() => emitter.on('test:count'));
 		assert(emitter.listenerCount('test:count') === count);
 	});
 
-	it('mixin', function (done) {
+	it('EmitLite.mixin()', function (done) {
 		const obj = { a: 'a' };
 		EmitLite.mixin(obj);
 		obj.on('test:mixin', (b) => {

@@ -47,10 +47,20 @@ emitter.emit('test:once');
 emitter.off(eventType[, handler])
 
 ```js
-const handler = () => console.log('emitted'); // will not emit
+const handler = () => console.log('emitted'); // will never log anything
 
 emitter.on('test:off', handler);
 emitter.off('test:off');
+emitter.emit('test:off');
+```
+
+`emitter.off()` could also be done as
+
+```js
+const handler = () => console.log('emitted'); // will never log anything
+
+const off = emitter.on('test:off', handler);
+off();
 emitter.emit('test:off');
 ```
 

@@ -6,6 +6,7 @@ const emitter = {
 		this[_events] = this[_events] || {};
 		this[_events][event] = this[_events][event] || [];
 		this[_events][event].push(fn);
+		return () => this.off(event, fn);
 	},
 	off(event, fn) {
 		const events = this[_events] = this[_events] || {};
@@ -19,7 +20,7 @@ const emitter = {
 			fn.apply(this, args);
 			this.off(event, wrappedFn);
 		};
-		this.on(event, wrappedFn);
+		return this.on(event, wrappedFn);
 	},
 	emit(event, ...args) {
 		this[_events] = this[_events] || {};
